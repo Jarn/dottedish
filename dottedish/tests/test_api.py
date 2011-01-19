@@ -65,6 +65,13 @@ class TestAPI(unittest.TestCase):
         self.assertTrue(api.unflatten(data) == {'foo': {'0': 'bar'}})
         self.assertTrue(api.unflatten(data, container_factory=container_factory) == {'foo': ['bar']})
 
+    def test_unflatten_container_factory_with_random_order(self):
+        container_factory = lambda parent, item: []
+        self.assertEqual(api.unflatten([('foo.0', 42), ('foo.1', 23)],
+            container_factory=container_factory), {'foo': [42, 23]})
+        self.assertEqual(api.unflatten([('foo.1', 23), ('foo.0', 42)],
+            container_factory=container_factory), {'foo': [42, 23]})
+
     def test_set_dotted(self):
         d = {}
         dd = api.dotted(d)

@@ -2,6 +2,7 @@ __all__ = ['dotted', 'set', 'get', 'flatten', 'unflatten']
 
 
 from simplegeneric import generic
+from operator import itemgetter
 
 
 ##
@@ -74,6 +75,9 @@ def unflatten(l, container_factory=None):
     """
     if container_factory is None:
         container_factory = lambda p, c: {}
+    else:
+        # the `.n` keys need to be in order in case of list-like containers
+        l = sorted(l, key=itemgetter(0))
     root = {}
     for (key, value) in l:
         set(root, key, value, container_factory=container_factory)

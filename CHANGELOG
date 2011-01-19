@@ -1,6 +1,11 @@
-==========
-Changlelog
-==========
+=========
+Changelog
+=========
+
+0.6.1 (unreleased)
+------------------
+
+Don't rely on POST values being in order during "unflatten".
 
 0.6 (2009-06-03)
 ----------------
